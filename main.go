@@ -43,7 +43,7 @@ func newGame() {
 	playerName := "Рыцарь Go"
 	monsterName := "Багозавр"
 	playerHP := 100
-	monsterHP := 80
+	monsterHP := 1000
 
 	game = Game{
 		PlayerName:   playerName,
@@ -67,17 +67,13 @@ func (g Game) MonsterPercent() int {
 }
 
 func percent(value int, max int) int {
-	if value <= 0 {
+	if max <= 0 || value <= 0 {
 		return 0
 	}
 	if value >= max {
 		return 100
 	}
 	return value * 100 / max
-}
-
-func showGame(w http.ResponseWriter, r *http.Request) {
-	page.Execute(w, game)
 }
 
 func attack(w http.ResponseWriter, r *http.Request) {
