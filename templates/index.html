@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ru">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Go Dungeon</title>
+	<link rel="stylesheet" href="/static/style.css">
+</head>
+<body class="action-{{.LastAction}}">
+	<main class="game">
+		<div class="scene">
+			<div class="torch torch-left"></div>
+			<div class="torch torch-right"></div>
+
+			<h1>Go Dungeon</h1>
+
+			<section class="arena">
+				<div class="fighter player">
+					<div class="sprite go-hero" aria-hidden="true">
+						<svg viewBox="0 0 220 210" role="img">
+							<path class="cape" d="M72 43 C33 54 21 95 35 131 C49 168 84 189 125 184 C163 180 195 154 199 116 C205 66 159 34 117 37 C99 38 83 40 72 43Z"/>
+							<path class="body" d="M81 39 C52 54 40 85 43 122 C47 168 84 197 129 190 C175 183 205 150 204 109 C203 65 168 39 126 37 C111 36 93 35 81 39Z"/>
+							<path class="head-spot" d="M55 36 C70 24 90 29 101 43 C88 52 73 53 60 48Z"/>
+							<circle class="eye" cx="132" cy="79" r="31"/>
+							<circle class="pupil" cx="126" cy="75" r="10"/>
+							<path class="mouth" d="M148 130 C153 137 159 142 164 143"/>
+							<path class="arm arm-left" d="M59 90 C47 84 39 75 36 65"/>
+							<path class="arm arm-right" d="M196 83 C210 84 217 91 215 101"/>
+							<path class="leg leg-left" d="M83 184 L72 202"/>
+							<path class="leg leg-right" d="M142 188 L150 205"/>
+							<path class="sweat" d="M212 110 C223 114 226 121 222 129"/>
+							<path class="sword" d="M35 30 L35 170 M9 101 L61 101"/>
+						</svg>
+					</div>
+					<div class="name">{{.PlayerName}}</div>
+					<div class="hp">{{.PlayerHP}} HP</div>
+					<div class="bar">
+						<div class="bar-fill player-fill" style="width: {{.PlayerPercent}}%"></div>
+					</div>
+				</div>
+
+				<div class="impact" aria-hidden="true">БАМ!</div>
+
+				<div class="fighter monster">
+					<div class="sprite bug-monster" aria-hidden="true">
+						<div class="horn horn-left"></div>
+						<div class="horn horn-right"></div>
+						<div class="bug-body">
+							<div class="bug-eye left"></div>
+							<div class="bug-eye right"></div>
+							<div class="bug-mouth"></div>
+							<div class="bug-tooth t1"></div>
+							<div class="bug-tooth t2"></div>
+							<div class="bug-spike s1"></div>
+							<div class="bug-spike s2"></div>
+							<div class="bug-spike s3"></div>
+						</div>
+					</div>
+					<div class="name">{{.MonsterName}}</div>
+					<div class="hp">{{.MonsterHP}} HP</div>
+					<div class="bar">
+						<div class="bar-fill monster-fill" style="width: {{.MonsterPercent}}%"></div>
+					</div>
+				</div>
+			</section>
+		</div>
+
+		<p class="message">{{.Message}}</p>
+
+		<div class="actions">
+			<form action="/attack" method="post">
+				<button class="attack-btn" {{if .GameOver}}disabled{{end}}>Атаковать</button>
+			</form>
+
+			<form action="/heal" method="post">
+				<button class="heal-btn" {{if .GameOver}}disabled{{end}}>Лечиться</button>
+			</form>
+
+			<form action="/super" method="post">
+				<button class="super-btn" {{if .GameOver}}disabled{{end}}>Суперудар</button>
+			</form>
+		</div>
+
+		<form action="/restart" method="post">
+			<button class="restart">Новая игра</button>
+		</form>
+	</main>
+</body>
+</html>
