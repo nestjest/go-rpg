@@ -76,6 +76,10 @@ func percent(value int, max int) int {
 	return value * 100 / max
 }
 
+func showGame(w http.ResponseWriter, r *http.Request) {
+	page.Execute(w, game)
+}
+
 func attack(w http.ResponseWriter, r *http.Request) {
 	if game.GameOver {
 		http.Redirect(w, r, "/", http.StatusSeeOther)
